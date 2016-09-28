@@ -1,15 +1,30 @@
+import _ from 'lodash'; // $npm install --save lodash
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import YTSearch from 'youtube-api-search';
 
-import App from './components/app';
-import reducers from './reducers';
+const API_KEY = 'AIzaSyCaYFCkiYUV9f5ggVlGq5eaPYhvi7n1Ojs';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+class App extends React.Component {
+  constructor() {
+    super()
+  }
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , document.querySelector('.container'));
+  videoSearch(term){
+    YTSearch({key:API_KEY, term:term}, (videos) => {
+      this.setState({
+        videos:videos,
+        selectedVideo: videos[0]
+      });
+
+    });
+  }
+
+  render(){
+    return(
+
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector('.container'));
